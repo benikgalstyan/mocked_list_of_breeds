@@ -34,13 +34,15 @@ class MyApp extends StatelessWidget {
            backgroundColor: Colors.black,
          ),
          body: ListView.separated(
-           padding: const EdgeInsets.only(left: 20),
            physics: const BouncingScrollPhysics(),
            itemCount: events.length,
-           itemBuilder: (_, index) => Text(
-             events[index],
+           itemBuilder: (_, index) => Padding(
+             padding: const EdgeInsets.only(left: 20),
+             child: Text(
+               events[index],
 
-             style: const TextStyle(fontSize: 30),
+               style: const TextStyle(fontSize: 30),
+             ),
            ),
            separatorBuilder: (_, __) => const Divider(color: Colors.grey,height: 60,thickness: 1,),
          ),
