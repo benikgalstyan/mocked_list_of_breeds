@@ -1,13 +1,27 @@
   import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
-  // This widget is the root of your application.
+  final List<String> events = [
+    "affenpincher",
+    "african",
+    "airedale ",
+    "akita",
+    "appenzeller ",
+    "australian shepherd",
+    "basenji",
+    "beagle  ",
+    "bluetick ",
+    "borzoi ",
+    "bouvier",
+    "boxer",
+    "brabancon",
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
