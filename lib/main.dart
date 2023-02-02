@@ -22,69 +22,29 @@ class MyApp extends StatelessWidget {
     "boxer",
     "brabancon",
   ];
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
 
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+   @override
+   Widget build(BuildContext context) {
+     return MaterialApp(
+       home: Scaffold(
+         appBar: AppBar(
+           title: const Text(
+             "Dogs List Screen",
+           ),
+           backgroundColor: Colors.black,
+         ),
+         body: ListView.separated(
+           padding: const EdgeInsets.only(left: 20),
+           physics: const BouncingScrollPhysics(),
+           itemCount: events.length,
+           itemBuilder: (_, index) => Text(
+             events[index],
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
+             style: const TextStyle(fontSize: 30),
+           ),
+           separatorBuilder: (_, __) => const Divider(color: Colors.grey,height: 60,thickness: 1,),
+         ),
+       ),
+     );
+   }
 }
