@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'listview.dart';
 
-void main() => runApp( MyApp());
+void main() => runApp(MyApp());
 
 

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     "boxer",
     "brabancon",
   ];
-  final txt = "Dogs List Screen";
+  final nameOfScreen = "Dogs List Screen";
   final double heightOption = 60;
   final double thicknessOption = 1;
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(txt),
+          title: Text(nameOfScreen),
           backgroundColor: Colors.black,
         ),
         body: ListView.separated(
@@ -35,9 +35,12 @@ class MyApp extends StatelessWidget {
           itemCount: breeds.length,
           itemBuilder: (_, index) => Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Text(breeds[index], style: const TextStyle(fontSize: 30),),
+            child: Text(
+              breeds[index],
+              style: const TextStyle(fontSize: 30),
+            ),
           ),
-          separatorBuilder: (_, __) =>   Divider(
+          separatorBuilder: (_, __) => Divider(
             color: Colors.grey,
             height: heightOption,
             thickness: thicknessOption,
