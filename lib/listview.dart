@@ -18,13 +18,16 @@ class MyApp extends StatelessWidget {
     "boxer",
     "brabancon",
   ];
+  final txt = "Dogs List Screen";
+  final double heightOption = 60;
+  final double thicknessOption = 1;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Dogs List Screen"),
+          title: Text(txt),
           backgroundColor: Colors.black,
         ),
         body: ListView.separated(
@@ -34,10 +37,10 @@ class MyApp extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20),
             child: Text(breeds[index], style: const TextStyle(fontSize: 30),),
           ),
-          separatorBuilder: (_, __) =>  const Divider(
+          separatorBuilder: (_, __) =>   Divider(
             color: Colors.grey,
-            height: 60,
-            thickness: 1,
+            height: heightOption,
+            thickness: thicknessOption,
           ),
         ),
       ),
