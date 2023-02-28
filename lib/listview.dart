@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                     if (_breeds[index].subBreed != null)
                       Text(
-                        _breeds[index].subBreed?.toString() ?? '',
+                        'SubBreed: ${_breeds[index].subBreed!.join(',')}',
                         style: const TextStyle(fontSize: 18),
                       ),
                   ],
