@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _breeds = breeds;
     });
-
   }
 
   @override
@@ -70,7 +69,11 @@ class _MyAppState extends State<MyApp> {
                       _breeds[index].breed,
                       style: const TextStyle(fontSize: 30),
                     ),
-
+                    if (_breeds[index].subBreed != null)
+                      Text(
+                        _breeds[index].subBreed?.toString() ?? '',
+                        style: const TextStyle(fontSize: 18),
+                      ),
                   ],
                 ),
               ),
