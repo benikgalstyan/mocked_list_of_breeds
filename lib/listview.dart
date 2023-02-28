@@ -20,6 +20,22 @@ class _MyAppState extends State<MyApp> {
     var responseMapBreeds = json.decode(response.body);
     var breedsMap = responseMapBreeds['message'];
 
+    var breeds = <Breed>[];
+    breedsMap.forEach((key, value) {
+      if (value.isNotEmpty) {
+        var subBreeds = <String>[];
+        value.forEach((subBreed) {
+          subBreeds.add(subBreed.toString());
+        });
+        breeds.add(Breed(key.toString(), subBreed: subBreeds));
+      } else {
+        breeds.add(Breed(key.toString()));
+      }
+    });
+    setState(() {
+      _breeds = breeds;
+    });
+
   }
 
   @override
