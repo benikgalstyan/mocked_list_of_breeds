@@ -20,12 +20,6 @@ class _BreedLayoutState extends State<BreedLayoutImg> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () {},
-                child: const Text ('Back'),
-            ),
-          ],
         ),
       ),
     );
