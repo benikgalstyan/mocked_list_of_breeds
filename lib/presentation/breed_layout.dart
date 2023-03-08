@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_event.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_list_bloc.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_state.dart';
-import 'package:mocked_list_of_breeds/presentation/breed_image_screen.dart';
+import 'package:mocked_list_of_breeds/presentation/image_screen/breed_image_screen.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
 import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
 import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
