@@ -47,18 +47,11 @@ class _BreedLayoutState extends State<BreedLayout> {
             } else if (state is ErrorState) {
               return const Center(child: Text("error"));
             } else if (state is LoadedState) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BreedScreenImg()));
-                },
-                child: ListView.separated(
+              return ListView.separated(
                     itemBuilder: (_, index) => BreedWidget(state.breedList[index]),
                     separatorBuilder: (_, __) => const Divider(thickness: 4,),
-                    itemCount: (state.breedList.length)),
-              );
+                    itemCount: (state.breedList.length))
+              ;
             } else {
               throw Exception('unprocessed state $state in DogListLayout');
             }
