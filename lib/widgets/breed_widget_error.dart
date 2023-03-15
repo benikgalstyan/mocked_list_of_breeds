@@ -4,6 +4,7 @@ class BreedError extends StatelessWidget {
   const BreedError({super.key, required this.textError});
 
   final String textError;
+  final double sizeOfErrorIcon = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,10 @@ class BreedError extends StatelessWidget {
                 textError,
                 style: const TextStyle(color: Colors.red, fontSize: 20),
               ),
-              const Icon(
+               Icon(
                 Icons.error,
                 color: Colors.red,
+                size: sizeOfErrorIcon,
               ),
             ],
           ),
