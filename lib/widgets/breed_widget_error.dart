@@ -14,14 +14,16 @@ class BreedError extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                textError,
-                style: const TextStyle(color: Colors.red, fontSize: 20),
-              ),
-               Icon(
+              Icon(
                 Icons.error,
                 color: Colors.red,
                 size: sizeOfErrorIcon,
+              ),
+              const SizedBox(height: 15),
+              Text(
+                textError,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.black, fontSize: 20),
               ),
             ],
           ),

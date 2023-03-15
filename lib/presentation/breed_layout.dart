@@ -45,7 +45,8 @@ class _BreedLayoutState extends State<BreedLayout> {
             } else if (state is LoadingState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ErrorState) {
-              return BreedError(textError: 'Exception $state in DogListScreen');
+              return BreedError(
+                  textError: 'Something wrong with $state in DogListScreen');
             } else if (state is LoadedState) {
               return ListView.separated(
                   itemBuilder: (_, index) =>

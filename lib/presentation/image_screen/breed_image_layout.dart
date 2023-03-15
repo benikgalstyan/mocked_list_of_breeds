@@ -44,7 +44,7 @@ class _BreedLayoutState extends State<BreedLayoutImg> {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ErrorImageState) {
               return BreedError(
-                  textError: 'Exception $state in DogImageScreen');
+                  textError: 'Something wrong with $state in DogImageScreen');
             } else if (state is LoadedImageState) {
               return ListView.separated(
                   itemBuilder: (_, index) => Image.network(state.image[index]),
