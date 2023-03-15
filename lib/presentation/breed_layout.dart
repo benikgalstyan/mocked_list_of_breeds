@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_event.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_list_bloc.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_state.dart';
-import 'package:mocked_list_of_breeds/presentation/image_screen/breed_image_screen.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
 import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
 import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
+import 'package:mocked_list_of_breeds/widgets/breed_widget_error.dart';
 
 class BreedLayout extends StatefulWidget {
-  const BreedLayout({Key? key}) : super(key: key);
+  const BreedLayout({super.key});
 
   @override
   State<BreedLayout> createState() => _BreedLayoutState();
@@ -45,13 +45,15 @@ class _BreedLayoutState extends State<BreedLayout> {
             } else if (state is LoadingState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ErrorState) {
-              return const Center(child: Text("error"));
+              return BreedError(textError: 'Exception $state in DogListScreen');
             } else if (state is LoadedState) {
               return ListView.separated(
-                    itemBuilder: (_, index) => BreedWidget(state.breedList[index]),
-                    separatorBuilder: (_, __) => const Divider(thickness: 4,),
-                    itemCount: (state.breedList.length))
-              ;
+                  itemBuilder: (_, index) =>
+                      BreedWidget(state.breedList[index]),
+                  separatorBuilder: (_, __) => const Divider(
+                        thickness: 4,
+                      ),
+                  itemCount: (state.breedList.length));
             } else {
               throw Exception('unprocessed state $state in DogListLayout');
             }

@@ -3,21 +3,19 @@ import 'package:mocked_list_of_breeds/business_logic/bloc/breed_event.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_state.dart';
 import 'package:mocked_list_of_breeds/data/repository/repository.dart';
 
-
 class DogListBloc extends Bloc<DogEvent, BreedState> {
-  DogListBloc(this.repository) : super(InitialState())  {
-
-    on<LoadingDogsEvent>((event, emit) async  {
+  DogListBloc(this.repository) : super(InitialState()) {
+    on<LoadingDogsEvent>((event, emit) async {
       late final breeds;
-      try{
+      try {
         emit(LoadingState());
-        breeds =  await repository.getData();
-      }
-      catch(e){
+        breeds = await repository.getData();
+      } catch (e) {
         emit(ErrorState(e));
       }
       emit(LoadedState(breeds));
     });
   }
+
   final Repository repository;
 }

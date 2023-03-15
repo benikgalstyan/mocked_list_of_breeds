@@ -4,40 +4,36 @@ import 'package:mocked_list_of_breeds/business_logic/bloc/breed_image_bloc.dart'
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_image_event.dart';
 import 'package:mocked_list_of_breeds/business_logic/bloc/breed_image_state.dart';
 import 'package:mocked_list_of_breeds/data/model/breed.dart';
-import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
-import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
-import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
-
+import 'package:mocked_list_of_breeds/widgets/breed_widget_error.dart';
 
 class BreedLayoutImg extends StatefulWidget {
-  const BreedLayoutImg({Key? key, required this.breed}) : super(key: key);
+  const BreedLayoutImg({super.key, required this.breed});
+
   final Breed breed;
 
   @override
   State<BreedLayoutImg> createState() => _BreedLayoutState();
-
 }
 
 class _BreedLayoutState extends State<BreedLayoutImg> {
-
-@override
+  @override
   void initState() {
-  context.read<DogImageBloc>().add(LoadingDogsImageEvent(widget.breed));
+    context.read<DogImageBloc>().add(LoadingDogsImageEvent(widget.breed));
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Image Screen'),
-    leading: IconButton(
-    icon: const Icon(Icons.arrow_back),
-    onPressed: () {
-    Navigator.of(context).pop();},),
+          title: const Text('Dogs Image Screen'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           backgroundColor: Colors.black,
         ),
         body: BlocBuilder<DogImageBloc, BreedImageState>(
@@ -47,12 +43,15 @@ class _BreedLayoutState extends State<BreedLayoutImg> {
             } else if (state is LoadingImageState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ErrorImageState) {
-              return const Center(child: Text("error"));
+              return BreedError(
+                  textError: 'Exception $state in DogImageScreen');
             } else if (state is LoadedImageState) {
               return ListView.separated(
-                    itemBuilder: (_, index) => Image.network(state.image[index]),
-                    separatorBuilder: (_, __) => const Divider(thickness: 4,),
-                    itemCount: (state.image.length));
+                  itemBuilder: (_, index) => Image.network(state.image[index]),
+                  separatorBuilder: (_, __) => const Divider(
+                        thickness: 4,
+                      ),
+                  itemCount: (state.image.length));
             } else {
               throw Exception('unprocessed state $state in DogListLayout');
             }
@@ -62,5 +61,3 @@ class _BreedLayoutState extends State<BreedLayoutImg> {
     );
   }
 }
-
-
