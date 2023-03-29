@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_image_bloc.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_image_event.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_image_state.dart';
 import 'package:mocked_list_of_breeds/data/model/breed.dart';
-import 'package:mocked_list_of_breeds/widgets/breed_widget_error.dart';
+import 'package:mocked_list_of_breeds/provider/provider_impl.dart';
+import 'package:provider/provider.dart';
 
 class BreedLayoutImg extends StatefulWidget {
   const BreedLayoutImg({super.key, required this.breed});
@@ -16,48 +13,34 @@ class BreedLayoutImg extends StatefulWidget {
 }
 
 class _BreedLayoutState extends State<BreedLayoutImg> {
+  late final DataFromApi dataFromApi;
+
   @override
   void initState() {
-    context.read<DogImageBloc>().add(LoadingDogsImageEvent(widget.breed));
     super.initState();
+    dataFromApi = Provider.of<DataFromApi>(context, listen: false);
+    dataFromApi.getImage(widget.breed);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Dogs Image Screen'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+          appBar: AppBar(
+            title: const Text('Dogs Image Screen'),
           ),
-          backgroundColor: Colors.black,
-        ),
-        body: BlocBuilder<DogImageBloc, BreedImageState>(
-          builder: (context, state) {
-            if (state is InitialImageState) {
-              return const Center(child: Text("Waiting"));
-            } else if (state is LoadingImageState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ErrorImageState) {
-              return BreedError(
-                  textError: 'Something wrong with $state in DogImageScreen');
-            } else if (state is LoadedImageState) {
+          body: Consumer<DataFromApi>(
+            builder: (context, provider, child) {
               return ListView.separated(
-                  itemBuilder: (_, index) => Image.network(state.image[index]),
-                  separatorBuilder: (_, __) => const Divider(
-                        thickness: 4,
-                      ),
-                  itemCount: (state.image.length));
-            } else {
-              throw Exception('unprocessed state $state in DogListLayout');
-            }
-          },
-        ),
-      ),
+                itemBuilder: (_, index) =>
+                    Image.network(provider.dogImages[index]),
+                separatorBuilder: (_, __) => const Divider(
+                  thickness: 4,
+                ),
+                itemCount: (provider.dogImages.length),
+              );
+            },
+          )),
     );
   }
 }
