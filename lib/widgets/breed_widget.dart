@@ -8,8 +8,10 @@ class BreedWidget extends StatelessWidget {
   final Breed breed;
 
   void navigation(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BreedScreenImg(breed: breed)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BreedScreenImage(breed: breed)));
   }
 
   @override

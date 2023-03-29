@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_event.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_list_bloc.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_state.dart';
+import 'package:mocked_list_of_breeds/data/model/breed.dart';
+import 'package:mocked_list_of_breeds/provider/provider_impl.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
-import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
-import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
-import 'package:mocked_list_of_breeds/widgets/breed_widget_error.dart';
+import 'package:provider/provider.dart';
 
 class BreedLayout extends StatefulWidget {
   const BreedLayout({super.key});
@@ -16,50 +12,49 @@ class BreedLayout extends StatefulWidget {
 }
 
 class _BreedLayoutState extends State<BreedLayout> {
-  final repo = RepositoryImpl(NetworkServiceImpl());
-
-  @override
-  void initState() {
-    context.read<DogListBloc>().add(LoadingDogsEvent());
-    super.initState();
-  }
-
   final nameOfScreen = "Dogs List Screen";
 
   final double heightOption = 60;
 
   final double thicknessOption = 1;
 
+  late final DataFromApi dataFromApi;
+
+  late final Breed breed;
+
+  @override
+  void initState() {
+    super.initState();
+    dataFromApi = Provider.of<DataFromApi>(context, listen: false);
+    dataFromApi.getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(nameOfScreen),
-          backgroundColor: Colors.black,
-        ),
-        body: BlocBuilder<DogListBloc, BreedState>(
-          builder: (context, state) {
-            if (state is InitialState) {
-              return const Center(child: Text("Waiting"));
-            } else if (state is LoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ErrorState) {
-              return BreedError(
-                  textError: 'Something wrong with $state in DogListScreen');
-            } else if (state is LoadedState) {
-              return ListView.separated(
-                  itemBuilder: (_, index) =>
-                      BreedWidget(state.breedList[index]),
-                  separatorBuilder: (_, __) => const Divider(
-                        thickness: 4,
-                      ),
-                  itemCount: (state.breedList.length));
-            } else {
-              throw Exception('unprocessed state $state in DogListLayout');
-            }
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dog Breeds'),
+        backgroundColor: Colors.black,
+      ),
+      body: Consumer<DataFromApi>(
+        builder: (context, provider, child) {
+          if (provider.newDogList.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.separated(
+            itemCount: provider.newDogList.length,
+            itemBuilder: (_, index) => BreedWidget(
+              provider.newDogList[index],
+            ),
+            separatorBuilder: (_, __) => Divider(
+              color: Colors.grey,
+              height: heightOption,
+              thickness: thicknessOption,
+            ),
+          );
+        },
       ),
     );
   }
