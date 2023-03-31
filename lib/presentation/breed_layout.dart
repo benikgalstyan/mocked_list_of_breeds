@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_event.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_list_bloc.dart';
-import 'package:mocked_list_of_breeds/business_logic/bloc/breed_state.dart';
+import 'package:mocked_list_of_breeds/business_logic/cubit/breed_list_cubit.dart';
+import 'package:mocked_list_of_breeds/business_logic/cubit/breed_state.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
-import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
-import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget_error.dart';
 
 class BreedLayout extends StatefulWidget {
@@ -16,19 +13,17 @@ class BreedLayout extends StatefulWidget {
 }
 
 class _BreedLayoutState extends State<BreedLayout> {
-  final repo = RepositoryImpl(NetworkServiceImpl());
-
-  @override
-  void initState() {
-    context.read<DogListBloc>().add(LoadingDogsEvent());
-    super.initState();
-  }
-
   final nameOfScreen = "Dogs List Screen";
 
   final double heightOption = 60;
 
   final double thicknessOption = 1;
+
+  @override
+  void initState() {
+    context.read<DogListCubit>().fetchBreedApi();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +33,7 @@ class _BreedLayoutState extends State<BreedLayout> {
           title: Text(nameOfScreen),
           backgroundColor: Colors.black,
         ),
-        body: BlocBuilder<DogListBloc, BreedState>(
+        body: BlocBuilder<DogListCubit, BreedState>(
           builder: (context, state) {
             if (state is InitialState) {
               return const Center(child: Text("Waiting"));
