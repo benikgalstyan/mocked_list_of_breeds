@@ -49,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
-  cubit:
-    dependency: "direct main"
-    description:
-      name: cubit
-      sha256: "87a0e33da05fbfcdd43aedb9f3156f04523f0624ab3a3bd06e8b9b67fdbd48b2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -257,5 +249,5 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
+  dart: ">=2.19.0 <4.0.0"
   flutter: ">=1.16.0"
