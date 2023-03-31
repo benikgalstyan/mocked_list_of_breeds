@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
-import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
 import 'package:mocked_list_of_breeds/presentation/breed_screen.dart';
+import 'package:mocked_list_of_breeds/setup_service_locator.dart';
 
 void main() {
-  runApp(BreedScreen(
-    repository: RepositoryImpl(NetworkServiceImpl()),
-  ));
+  setupServiceLocator();
+  runApp(const BreedScreen());
 }
