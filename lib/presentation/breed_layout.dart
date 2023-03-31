@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mocked_list_of_breeds/business_logic/cubit/breed_list_cubit.dart';
 import 'package:mocked_list_of_breeds/business_logic/cubit/breed_state.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
-import 'package:mocked_list_of_breeds/data/repository/repository_impl.dart';
-import 'package:mocked_list_of_breeds/data/services/network_service_impl.dart';
 import 'package:mocked_list_of_breeds/widgets/breed_widget_error.dart';
 
 class BreedLayout extends StatefulWidget {
@@ -15,13 +13,17 @@ class BreedLayout extends StatefulWidget {
 }
 
 class _BreedLayoutState extends State<BreedLayout> {
-  final repo = RepositoryImpl(NetworkServiceImpl());
-
   final nameOfScreen = "Dogs List Screen";
 
   final double heightOption = 60;
 
   final double thicknessOption = 1;
+
+  @override
+  void initState() {
+    context.read<DogListCubit>().fetchBreedApi();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

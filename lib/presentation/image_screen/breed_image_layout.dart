@@ -16,6 +16,12 @@ class BreedLayoutImg extends StatefulWidget {
 
 class _BreedLayoutState extends State<BreedLayoutImg> {
   @override
+  void initState() {
+    context.read<DogImageCubit>().fetchImageApi();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
