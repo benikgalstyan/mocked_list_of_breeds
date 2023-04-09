@@ -1,6 +1,8 @@
 import 'package:mocked_list_of_breeds/data/model/breed.dart';
 import 'package:mocked_list_of_breeds/data/repository/repository.dart';
 import 'package:mocked_list_of_breeds/data/services/network_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mocked_list_of_breeds/setup_service_locator.dart';
 
 class RepositoryImpl implements Repository {
   final NetworkService networkService;
@@ -31,3 +33,6 @@ class RepositoryImpl implements Repository {
     return breedImageList;
   }
 }
+
+final dataProvider =
+    Provider<RepositoryImpl>((ref) => RepositoryImpl(getIt<NetworkService>()));
