@@ -7,13 +7,19 @@ import 'package:mocked_list_of_breeds/widgets/breed_widget.dart';
 class BreedLayout extends ConsumerWidget {
   const BreedLayout({super.key});
 
+  final nameOfScreen = "Dogs List Screen";
+
+  final double heightOption = 60;
+
+  final double thicknessOption = 1;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _data = ref.watch(breedsDataProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text("Breed List"),
+        title:  Text(nameOfScreen),
       ),
       body: _data.when(
           data: (_data) {
@@ -21,10 +27,10 @@ class BreedLayout extends ConsumerWidget {
             return ListView.separated(
               itemCount: breedList.length,
               itemBuilder: (_, index) => BreedWidget(breedList[index]),
-              separatorBuilder: (_, __) => const Divider(
+              separatorBuilder: (_, __) =>  Divider(
                 color: Colors.grey,
-                height: 60,
-                thickness: 1,
+                height: heightOption,
+                thickness: thicknessOption,
               ),
             );
           },

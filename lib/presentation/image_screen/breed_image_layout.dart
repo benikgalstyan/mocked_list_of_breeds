@@ -8,12 +8,14 @@ class BreedLayoutImg extends ConsumerWidget {
 
   final Breed breed;
 
+  final nameOfScreen = "Dogs Image Screen";
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _data = ref.watch(breedsImageProvider(breed));
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dogs Image Screen"),
+        title: Text(nameOfScreen),
       ),
       body: _data.when(
           data: (_data) {
