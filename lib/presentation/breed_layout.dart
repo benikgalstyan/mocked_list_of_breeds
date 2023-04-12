@@ -34,7 +34,7 @@ class BreedLayout extends ConsumerWidget {
               ),
             );
           },
-          error: (err, s) => Text(err.toString()),
+          error: (error, state) => Text(error.toString()),
           loading: () => const Center(
                 child: CircularProgressIndicator(),
               )),
